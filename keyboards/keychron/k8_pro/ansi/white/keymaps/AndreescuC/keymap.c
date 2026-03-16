@@ -61,10 +61,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [NAV] = LAYOUT_tkl_ansi(
      KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,             KC_TRNS,  KC_TRNS,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  LCTL(KC_R),  KC_TRNS,  KC_TRNS,  KC_LBRC,  KC_UP,  KC_RBRC,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TRNS,  KC_TRNS,            KC_TRNS,
-     KC_TRNS,            LCTL(KC_Z),     LCTL(KC_X),     LCTL(KC_C),  LCTL(KC_V),  KC_TRNS,  LCTL(KC_N),  LCTL(KC_M),  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,            KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS)
+     KC_TRNS,  LCTL(KC_Q), LCTL(KC_W), LCTL(KC_E),  LCTL(KC_R),  LCTL(KC_T),  LCTL(KC_Y),  KC_LBRC,  KC_UP,  KC_RBRC,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+     KC_TRNS,  LCTL(KC_A), LCTL(KC_S), LCTL(KC_D),  LCTL(KC_F),  LCTL(KC_G),  LCTL(KC_H),  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TRNS,  KC_TRNS,            KC_TRNS,
+     KC_TRNS,  LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C),  LCTL(KC_V),  KC_TRNS,  LCTL(KC_N),  LCTL(KC_M),  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,            LCTL(KC_UP),
+     KC_TRNS,  KC_TRNS,    KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  LCTL(KC_LEFT),  LCTL(KC_DOWN),  LCTL(KC_RGHT))
 };
 
 static void send_five_lines(bool is_up) {
@@ -79,8 +79,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           return true;
      }
      uint8_t saved_mods = get_mods();
-     uint8_t ctrl_only = saved_mods & MOD_MASK_CTRL;
-     del_mods(ctrl_only);
      switch (keycode) {
           case KC_UP:
           case KC_DOWN:
@@ -88,9 +86,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     bool is_up = (keycode == KC_UP);
                     if (saved_mods & MOD_MASK_ALT) {
                          if (saved_mods & MOD_MASK_GUI) {
-                              clear_mods();
+                              del_mods(MOD_MASK_ALT | MOD_MASK_GUI);
                               tap_code(is_up ? KC_PGUP : KC_PGDN);
                          } else {
+                              del_mods(MOD_MASK_ALT);
                               send_five_lines(is_up);
                          }
                     } else {
