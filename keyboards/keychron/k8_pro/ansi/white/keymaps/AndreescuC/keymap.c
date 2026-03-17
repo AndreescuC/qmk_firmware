@@ -59,12 +59,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS),
 
 [NAV] = LAYOUT_tkl_ansi(
-     KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,   KC_TRNS,             KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  LCTL(KC_Q), LCTL(KC_W), LCTL(KC_E),  LCTL(KC_R),  LCTL(KC_T),  LCTL(KC_Y),  KC_LBRC,  KC_UP,  KC_RBRC,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-     KC_TRNS,  LCTL(KC_A), LCTL(KC_S), LCTL(KC_D),  LCTL(KC_F),  LCTL(KC_G),  LCTL(KC_H),  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_TRNS,  KC_TRNS,            KC_TRNS,
-     KC_TRNS,  LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C),  LCTL(KC_V),  KC_TRNS,  LCTL(KC_N),  LCTL(KC_M),  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,            LCTL(KC_UP),
-     KC_TRNS,  KC_TRNS,    KC_TRNS,                                KC_TRNS,                                KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  LCTL(KC_LEFT),  LCTL(KC_DOWN),  LCTL(KC_RGHT))
+     KC_TRNS,      KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,       KC_TRNS,       KC_TRNS,       KC_TRNS,                      KC_TRNS,  KC_TRNS,  KC_TRNS,
+     LCTL(KC_GRV), LCTL(KC_1), LCTL(KC_2), LCTL(KC_3), LCTL(KC_4), LCTL(KC_5), LCTL(KC_6), LCTL(KC_7), LCTL(KC_8), LCTL(KC_9),    LCTL(KC_0),    LCTL(KC_MINS), LCTL(KC_EQL),  LCTL(KC_BSPC), KC_TRNS,  KC_TRNS,  KC_TRNS,
+     KC_TRNS,      LCTL(KC_Q), LCTL(KC_W), LCTL(KC_E), LCTL(KC_R), LCTL(KC_T), LCTL(KC_Y), KC_LBRC,    KC_UP,      KC_RBRC,       LCTL(KC_P),    KC_TRNS,       LCTL(KC_RBRC), LCTL(KC_BSLS), KC_TRNS,  KC_TRNS,  KC_TRNS,
+     KC_TRNS,      LCTL(KC_A), LCTL(KC_S), LCTL(KC_D), LCTL(KC_F), LCTL(KC_G), LCTL(KC_H), KC_LEFT,    KC_DOWN,    KC_RGHT,       LCTL(KC_SCLN), LCTL(KC_QUOT),                LCTL(KC_ENT),
+     KC_TRNS,                  LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_B), LCTL(KC_N), LCTL(KC_M), LCTL(KC_COMM), LCTL(KC_DOT),  LCTL(KC_SLSH),                KC_TRNS,                  LCTL(KC_UP),
+     KC_TRNS,      KC_TRNS,    KC_TRNS,                              LCTL(KC_SPC),                                                KC_TRNS,       KC_TRNS,       KC_TRNS,       KC_TRNS,       LCTL(KC_LEFT),  LCTL(KC_DOWN),  LCTL(KC_RGHT))
 };
 
 static void send_five_lines(bool is_up) {
