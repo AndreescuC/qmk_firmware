@@ -96,6 +96,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                          tap_code(keycode);
                     }
                }
+          case KC_RBRC:
+          case KC_LBRC:
+               {
+                    if (saved_mods & MOD_MASK_ALT) {
+                         del_mods(MOD_MASK_ALT);
+                         if (keycode == KC_LBRC) {
+                              tap_code16(KC_LPRN);
+                         } else {
+                              tap_code16(KC_RPRN);
+                         }
+                    } else {
+                         tap_code(keycode);
+                    }
+               }
           break;
      default:
           return true;
