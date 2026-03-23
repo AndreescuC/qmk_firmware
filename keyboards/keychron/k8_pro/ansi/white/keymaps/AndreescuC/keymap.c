@@ -75,46 +75,51 @@ static void send_five_lines(bool is_up) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-     if (!record->event.pressed) {
-          return true;
-     }
-     uint8_t saved_mods = get_mods();
-     switch (keycode) {
-          case KC_UP:
-          case KC_DOWN:
-               {
-                    bool is_up = (keycode == KC_UP);
-                    if (saved_mods & MOD_MASK_ALT) {
-                         if (saved_mods & MOD_MASK_GUI) {
-                              del_mods(MOD_MASK_ALT | MOD_MASK_GUI);
-                              tap_code(is_up ? KC_PGUP : KC_PGDN);
-                         } else {
-                              del_mods(MOD_MASK_ALT);
-                              send_five_lines(is_up);
-                         }
-                    } else {
-                         tap_code(keycode);
-                    }
-               }
-          case KC_RBRC:
-          case KC_LBRC:
-               {
-                    if (saved_mods & MOD_MASK_ALT) {
-                         del_mods(MOD_MASK_ALT);
-                         if (keycode == KC_LBRC) {
-                              tap_code16(KC_LPRN);
-                         } else {
-                              tap_code16(KC_RPRN);
-                         }
-                    } else {
-                         tap_code(keycode);
-                    }
-               }
-          break;
-     default:
-          return true;
-     }
+    if (!record->event.pressed) {
+        return true;  // let releases pass through
+    }
 
-    set_mods(saved_mods);
-    return false;
+    uint8_t saved_mods = get_mods();
+
+    switch (keycode) {
+    case KC_UP:
+    case KC_DOWN: {
+        bool is_up = (keycode == KC_UP);
+        if (saved_mods & MOD_MASK_ALT) {
+            if (saved_mods & MOD_MASK_GUI) {
+                del_mods(MOD_MASK_ALT | MOD_MASK_GUI);
+                tap_code(is_up ? KC_PGUP : KC_PGDN);
+            } else {
+                del_mods(MOD_MASK_ALT);
+                send_five_lines(is_up);
+            }
+        } else {
+            tap_code(keycode);
+        }
+        set_mods(saved_mods);
+        return false;   // we fully handled the key
+    }
+
+    case KC_RBRC:
+    case KC_LBRC: {
+        if (saved_mods & MOD_MASK_ALT) {
+            del_mods(MOD_MASK_ALT);
+            if (keycode == KC_LBRC) {
+                tap_code16(KC_LPRN);
+            } else {
+                tap_code16(KC_RPRN);
+            }
+            set_mods(saved_mods);
+            return false;  // we handled it
+        } else {
+            // just send the bracket normally
+            tap_code(keycode);
+            set_mods(saved_mods);
+            return false;  // we handled it too
+        }
+    }
+
+    default:
+        return true;  // all other keys: do nothing special
+    }
 }
